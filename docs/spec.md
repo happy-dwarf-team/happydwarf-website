@@ -370,7 +370,9 @@ Every web record of the `happydwarf.dev` zone and its proxy status
 - The organization's Pages domain verification is already done (the TXT record above); it covers
   the apex and its immediate subdomains.
 - State when this was written (read through public DNS, 2026-10-24): apex has only Email Routing
-  records, `anvil` exists, `www`, `etch` and `media` do not; nothing collides.
+  records, `anvil` exists, `www`, `etch` and `media` do not; nothing collides. Since 2026-10-24
+  `media` exists as R2's read-only proxied CNAME to `public.r2.dev`
+  ([#7](https://github.com/happy-dwarf-team/happydwarf-website/issues/7)).
 
 ### 7.2 Media bucket
 
@@ -379,7 +381,7 @@ From [#8](https://github.com/happy-dwarf-team/.github/issues/8) and
 
 - **One R2 bucket, `happydwarf-media`**, behind `https://media.happydwarf.dev/`, for all public
   media of the organization. Standard storage class, default jurisdiction, automatic location
-  hint.
+  hint (R2 placed it in `ENAM`).
 - **One prefix per project slug** from `projects.yaml` (`etch/`, later `anvil/`, `happydwarf/`
   for this site). A prefix appears with its first object; at launch only `etch/` exists.
 - **Keys** `<project>/v<version>/<scene>.<hash8>.<ext>`, e.g.
@@ -473,9 +475,17 @@ Open checks from #25, each owned by a build issue:
 2. Does GitHub's certificate for the apex also cover `www`? Without it the HTTPS redirect on
    `.dev` (HSTS-preloaded) fails. (Hub launch, section 7.6.)
 3. Does the Cloudflare API MCP's OAuth grant include R2 and zone-settings scopes? If not, steps
-   2–7 go through Wrangler. (Bucket setup.)
+   2–7 go through Wrangler. (Bucket setup.) **Answered: yes.** Steps 2–7 all went through the
+   MCP's `execute` tool: bucket create, custom domain with `minTLS`, `r2.dev` and CORS, the
+   Smart Tiered Cache `PATCH` and the ruleset reads; Wrangler was not needed
+   ([#7](https://github.com/happy-dwarf-team/happydwarf-website/issues/7)).
 4. Does enabling R2 require a payment method on the free tier? (Bucket setup, done by
-   @s-tyda.)
+   @s-tyda.) **Answered:** @s-tyda enabled R2 in the dashboard on 2026-10-24, before any API
+   call.
+
+On the Free plan `argo/tiered_caching` reads `off` and is not editable, while
+`tiered_cache_smart_topology_enable` reads `on`. That Smart Tiered Cache is in effect without it
+is not verified; the cache-hit check above is the evidence that matters.
 
 ### 7.6 Launching `happydwarf.dev`
 
@@ -583,5 +593,8 @@ The build issues that implement this specification, under the tracking issue in
 - Contrast values in [DESIGN.md](../DESIGN.md) are computed, not measured in a browser.
 - The disclaimer wording is our interpretation of the Paradox User Agreement, not checked by a
   lawyer or Paradox; not legal advice.
-- No bucket, record, token or certificate exists yet; the open checks of section 7.5 are
-  answered in the build.
+- The bucket, its custom domain, CORS and Smart Tiered Cache are set up
+  ([#7](https://github.com/happy-dwarf-team/happydwarf-website/issues/7)), but no object has
+  been served yet: range requests, cache hits, CORS on a cache hit and iOS playback are checked
+  in Etch's first media publication. The apex and `www` records and their certificate do not
+  exist yet (section 7.6).
