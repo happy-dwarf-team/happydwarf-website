@@ -1,9 +1,11 @@
 ---
-// The document shell of every page: family and site styles and the head tags. The header
-// and footer come with the home and 404 pages (docs/spec.md, section 3).
+// The document shell of every page: family and site styles, the head tags, the header and
+// the footer (docs/spec.md, sections 3 and 6). The page's content goes into <main>.
 import '../styles/forge-family.css';
 import '../styles/site.css';
 import Head from '../components/Head.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 
 interface Props {
 	/** The page title without the site name. */
@@ -20,6 +22,10 @@ const { title } = Astro.props;
 		<Head title={title} />
 	</head>
 	<body>
-		<slot />
+		<Header />
+		<main id="main" class="wrap">
+			<slot />
+		</main>
+		<Footer />
 	</body>
 </html>

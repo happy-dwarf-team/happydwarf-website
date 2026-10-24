@@ -153,8 +153,8 @@ few days.":
 
 | Question | Link(s) |
 | --- | --- |
-| Need help installing? | the install guide on `anvil.happydwarf.dev`, then [`SUPPORT.md`](https://github.com/happy-dwarf-team/.github/blob/main/SUPPORT.md) |
-| Found a bug or have an idea? | the issues of the project it concerns |
+| Need help installing? | the [install guide](https://anvil.happydwarf.dev/docs/install/) on `anvil.happydwarf.dev`, then [`SUPPORT.md`](https://github.com/happy-dwarf-team/.github/blob/main/SUPPORT.md) |
+| Found a bug or have an idea? | the issues of the project it concerns, through the organization's [repository list](https://github.com/orgs/happy-dwarf-team/repositories) |
 | Want to contribute? | [`CONTRIBUTING.md`](https://github.com/happy-dwarf-team/.github/blob/main/CONTRIBUTING.md); plugin authors start from the Plugin template |
 | Security problem? | private reporting as in [`SECURITY.md`](https://github.com/happy-dwarf-team/.github/blob/main/SECURITY.md) |
 
@@ -578,8 +578,8 @@ The build issues that implement this specification, under the tracking issue in
 
 ## 9. Not verified
 
-- All copy is a draft that has not been seen on a real page; footer line length at 375 px is
-  unchecked.
+- The copy has been seen on the built pages at 375 px and on desktop, but not by readers outside
+  the team.
 - Contrast values in [DESIGN.md](../DESIGN.md) are computed, not measured in a browser.
 - The disclaimer wording is our interpretation of the Paradox User Agreement, not checked by a
   lawyer or Paradox; not legal advice.
