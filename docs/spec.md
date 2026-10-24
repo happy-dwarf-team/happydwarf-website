@@ -580,7 +580,6 @@ The build issues that implement this specification, under the tracking issue in
 - All copy is a draft that has not been seen on a real page; footer line length at 375 px is
   unchecked.
 - Contrast values in [DESIGN.md](../DESIGN.md) are computed, not measured in a browser.
-- `plugins.json` does not exist yet; its shape above is the contract `anvil-website` implements.
 - The disclaimer wording is our interpretation of the Paradox User Agreement, not checked by a
   lawyer or Paradox; not legal advice.
 - No bucket, record, token or certificate exists yet; the open checks of section 7.5 are
