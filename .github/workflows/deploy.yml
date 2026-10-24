@@ -1,0 +1,72 @@
+name: deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+  # Picks up new releases and plugins.json changes of the listed projects; there is no
+  # repository_dispatch from them (docs/spec.md, section 2.3).
+  schedule:
+    - cron: '17 4 * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      # Type-checks the components and validates the content collections.
+      - run: npm run check
+
+      # Repository variable CUSTOM_DOMAIN (happydwarf.dev) switches from the github.io
+      # project URL to the custom domain.
+      - name: Build
+        run: npm run build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SITE_URL: ${{ vars.CUSTOM_DOMAIN && format('https://{0}', vars.CUSTOM_DOMAIN) || 'https://happy-dwarf-team.github.io' }}
+          SITE_BASE: ${{ vars.CUSTOM_DOMAIN && '/' || '/happydwarf-website' }}
+
+      # Every internal link and #anchor in dist/ must resolve; external links are not checked.
+      - name: Check internal links
+        run: npm run check:links
+        env:
+          SITE_BASE: ${{ vars.CUSTOM_DOMAIN && '/' || '/happydwarf-website' }}
+
+      # axe-core on every page (WCAG 2.2 A/AA rules that do not need a rendered layout).
+      - name: Check accessibility
+        run: npm run check:a11y
+
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        if: github.event_name != 'pull_request'
+        with:
+          path: dist
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
