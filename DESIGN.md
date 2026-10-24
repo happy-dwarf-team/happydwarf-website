@@ -27,6 +27,8 @@ Everything except the site accent. Dark only; there is no light theme.
 | `--forge-text-muted` | `#a8a29e` | secondary text | 7.1:1 (6.5:1 on surface) |
 | `--forge-radius` | `0.75rem` | corner radius | — |
 | `--forge-ease` | `cubic-bezier(0.2, 0.7, 0.2, 1)` | the one easing curve | — |
+| `--forge-font-sans` | `'IBM Plex Sans Variable', system-ui, sans-serif` | body text | — |
+| `--forge-font-mono` | `'JetBrains Mono Variable', ui-monospace, monospace` | headings, names, numbers, code | — |
 
 Components use the `--forge-*` tokens, never raw hex values.
 
@@ -105,7 +107,10 @@ unchanged. They are not in `forge-family.css`; each site defines them in its own
 ### Distribution
 
 - `src/styles/forge-family.css` in this repository holds the family tokens, the font faces, the
-  focus ring and the reduced-motion rule. It is the source.
+  focus ring and the reduced-motion rule. It is the source. It imports the font faces from
+  `@fontsource-variable/ibm-plex-sans` and `@fontsource-variable/jetbrains-mono`, so a site
+  that copies it installs both packages. The site accent and the site's own base styles live in
+  the site's own stylesheet (here `src/styles/site.css`).
 - Other sites **copy it verbatim** with a header naming the source repository and commit, e.g.
   `/* Copied from happy-dwarf-team/happydwarf-website src/styles/forge-family.css at <commit>. Do not edit; change the source and copy again. */`
 - Sync is manual when tokens change; there is no package and no CI check. Move to a package (or
