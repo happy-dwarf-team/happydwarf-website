@@ -435,6 +435,12 @@ otherwise through Wrangler (`wrangler login`); never a token in a file or chat.
    `PATCH /zones/{zone_id}/cache/tiered_cache_smart_topology_enable` with `{"value": "on"}`.
 7. **No cache or WAF rule**: WebM and MP4 are cached by default and the origin `Cache-Control`
    is honoured. Revisit only if anything other than video is ever put in the bucket.
+   **Bot Fight Mode off** (Security → Settings → Bot traffic, or `PUT
+   /zones/{zone_id}/bot_management` with `{"fight_mode": false}`): on the Free plan it cannot be
+   skipped by any rule, and it answered the Etch site's CI `HEAD` check from GitHub's runners
+   with a `403` challenge, as it would any `<video>` request it took for a bot. Only `media` is
+   proxied, so the setting reaches nothing else; Cloudflare's free managed WAF rules stay on
+   ([etch-website#7](https://github.com/happy-dwarf-team/etch-website/issues/7)).
 8. **Upload token** (section 7.4).
 
 ### 7.4 Upload token
@@ -464,7 +470,8 @@ specification), with `U` an object URL
 ([#25](https://github.com/happy-dwarf-team/.github/issues/25)):
 
 - Setup state: the domain is enabled with min TLS 1.2, `r2.dev` is disabled, CORS lists the
-  policy above, Smart Tiered Cache is on; `media` resolves to Cloudflare addresses.
+  policy above, Smart Tiered Cache is on, Bot Fight Mode is off; `media` resolves to Cloudflare
+  addresses.
 - `curl --range 0-99 "$U"` returns `206` with `content-range: bytes 0-99/<size>`.
 - A second request from the same machine returns `cf-cache-status: HIT`.
 - `Content-Type` and `Cache-Control: public, max-age=31536000, immutable` come back as uploaded.
