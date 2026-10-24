@@ -1,7 +1,11 @@
 ---
-// Placeholder until the home page is built (docs/spec.md, section 3).
+// Placeholder until the home page is built (docs/spec.md, section 3). It lists the project
+// data with the family styles only, so every build already fetches and checks it.
 import '../styles/forge-family.css';
 import '../styles/site.css';
+import { getProjectGroups } from '../lib/projects';
+
+const groups = await getProjectGroups();
 ---
 
 <html lang="en">
@@ -17,6 +21,30 @@ import '../styles/site.css';
 				Open-source tools and mods for Europa Universalis IV. This site is being built; the
 				projects are on <a href="https://github.com/happy-dwarf-team">GitHub</a>.
 			</p>
+			{
+				groups.map((group) => (
+					<section aria-labelledby={group.id}>
+						<h2 id={group.id}>{group.title}</h2>
+						<p>
+							{group.intro} {group.count} {group.unit}.
+						</p>
+						<ul>
+							{group.rows.map((row) => (
+								<li>
+									<a href={row.primary.href}>{row.name}</a>
+									{row.badge && ` (${row.badge.kind === 'version' ? `v${row.badge.version}` : row.badge.label})`}
+									: {row.summary}
+								</li>
+							))}
+						</ul>
+						{group.catalog && (
+							<p>
+								<a href={group.catalog.href}>All {group.catalog.count} plugins in the Anvil catalog</a>
+							</p>
+						)}
+					</section>
+				))
+			}
 			<p>
 				Happy Dwarf Team projects are unofficial community projects, not affiliated with or
 				endorsed by Paradox Interactive.

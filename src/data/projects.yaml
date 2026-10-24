@@ -1,0 +1,73 @@
+# The hub's team projects, except the plugins, which come from the Anvil catalog's
+# plugins.json (docs/spec.md, section 4). Each `id` has an icon in src/assets/projects/.
+# Primary destination: own site, else Steam Workshop item, else repository.
+
+- id: anvil
+  name: Anvil
+  group: anvil-ecosystem
+  order: 1
+  featured: true
+  summary: Loads native plugins into Europa Universalis IV without changing `eu4.exe`, so Steam updates and file checks keep working.
+  status: released
+  primary:
+    href: https://anvil.happydwarf.dev/
+    label: Go to anvil.happydwarf.dev
+  repo: https://github.com/happy-dwarf-team/anvil
+
+- id: anvil-plugin-template
+  name: Plugin template
+  group: anvil-ecosystem
+  order: 2
+  summary: Start your own Anvil plugin with build, CI checks and releases ready to go.
+  status: template
+  primary:
+    href: https://github.com/happy-dwarf-team/anvil-plugin-template
+    label: Use this template
+  repo: https://github.com/happy-dwarf-team/anvil-plugin-template
+
+- id: etch
+  name: Etch
+  group: mod-tools
+  order: 1
+  summary: 'A VS Code extension that previews EU4 interface mods: edit a `.gui` or `.gfx` file and see the window as the game draws it.'
+  status: released
+  primary:
+    href: https://etch.happydwarf.dev/
+    label: etch.happydwarf.dev
+  repo: https://github.com/happy-dwarf-team/etch
+  accent: '#4fc9a8'
+
+- id: paradox-workshop-publish
+  name: paradox-workshop-publish
+  group: mod-tools
+  order: 2
+  summary: Publish Paradox game mods to the Steam Workshop from GitHub Actions or your own PC, driven by the mod descriptor.
+  status: released
+  primary:
+    href: https://github.com/happy-dwarf-team/paradox-workshop-publish
+    label: Read the README
+  repo: https://github.com/happy-dwarf-team/paradox-workshop-publish
+
+- id: widescreen-loading-screens
+  name: Widescreen loading screens
+  group: anbennar
+  order: 1
+  summary: Anbennar loading screens that fit widescreen monitors.
+  status: released
+  workshop: '3686212690'
+  primary:
+    href: https://steamcommunity.com/sharedfiles/filedetails/?id=3686212690
+    label: Steam Workshop
+  repo: https://github.com/happy-dwarf-team/eu4-anbennar-widescreen-loading-screens
+
+- id: proper-2k-ui
+  name: Proper 2K UI
+  group: anbennar
+  order: 2
+  summary: A proper 2K interface for Anbennar. No longer maintained.
+  status: archived
+  workshop: '3681465653'
+  primary:
+    href: https://steamcommunity.com/sharedfiles/filedetails/?id=3681465653
+    label: Steam Workshop
+  repo: https://github.com/happy-dwarf-team/eu4-anbennar-proper-2k-ui
