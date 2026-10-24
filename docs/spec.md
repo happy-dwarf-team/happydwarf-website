@@ -406,7 +406,7 @@ The checklist from [#25](https://github.com/happy-dwarf-team/.github/issues/25),
 otherwise through Wrangler (`wrangler login`); never a token in a file or chat.
 
 1. **Enable R2** on the Happy Dwarf account: **dashboard only**, done by @s-tyda (the API refuses
-   until then).
+   until then). It needs a payment method on file, even on the free tier.
 2. **Create the bucket** `happydwarf-media`, Standard, no location hint, no jurisdiction
    (`wrangler r2 bucket create happydwarf-media --storage-class Standard`). Check that the only
    lifecycle rule is the default multipart abort.
@@ -480,8 +480,8 @@ Open checks from #25, each owned by a build issue:
    Smart Tiered Cache `PATCH` and the ruleset reads; Wrangler was not needed
    ([#7](https://github.com/happy-dwarf-team/happydwarf-website/issues/7)).
 4. Does enabling R2 require a payment method on the free tier? (Bucket setup, done by
-   @s-tyda.) **Answered:** @s-tyda enabled R2 in the dashboard on 2026-10-24, before any API
-   call.
+   @s-tyda.) **Answered: yes.** Enabling R2 asked for a payment method even on the free tier;
+   @s-tyda added one and enabled R2 in the dashboard on 2026-10-24, before any API call.
 
 On the Free plan `argo/tiered_caching` reads `off` and is not editable, while
 `tiered_cache_smart_topology_enable` reads `on`. That Smart Tiered Cache is in effect without it
