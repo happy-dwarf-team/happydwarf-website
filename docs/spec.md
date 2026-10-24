@@ -439,16 +439,21 @@ otherwise through Wrangler (`wrangler login`); never a token in a file or chat.
 
 ### 7.4 Upload token
 
-From [#24](https://github.com/happy-dwarf-team/.github/issues/24):
+From [#24](https://github.com/happy-dwarf-team/.github/issues/24); one token per machine since
+[#7](https://github.com/happy-dwarf-team/happydwarf-website/issues/7):
 
-- One **Account API token** created in the dashboard (R2 → Manage API tokens → Create Account
-  API token), named **`happydwarf-media-upload`**, permission **Object Read & Write**, scoped to
-  the bucket `happydwarf-media` only (R2 cannot scope a prefix), **expiry one year**.
-- The S3 key pair lives only in the maintainer's Windows **user environment variables**
+- One **Account API token per machine** the maintainer uploads from, created in the dashboard
+  (R2 → Manage API tokens → Create Account API token), named
+  **`happydwarf-media-upload-<computer>`** with `<computer>` the machine's Windows computer name
+  in lower case (e.g. `happydwarf-media-upload-aether-matrix`), permission **Object Read &
+  Write**, scoped to the bucket `happydwarf-media` only (R2 cannot scope a prefix), **expiry one
+  year**.
+- A machine's S3 key pair lives only in that machine's Windows **user environment variables**
   `HAPPYDWARF_MEDIA_ACCESS_KEY_ID` and `HAPPYDWARF_MEDIA_SECRET_ACCESS_KEY`, set by the
-  maintainer. Never in chat, a file, a repository, a `.env` or CI. Not `AWS_*`.
-- **Rotate** at expiry, on a maintainer change and on any suspicion of a leak: create the new
-  token, then revoke the old one at once.
+  maintainer. Never in chat, a file, a repository, a `.env` or CI, and never copied to another
+  machine. Not `AWS_*`.
+- **Rotate** a token at expiry, on a maintainer change and on any suspicion of a leak: create the
+  new token, then revoke the old one at once. A lost or retired machine: revoke its token only.
 - The account ID, bucket name and endpoint (`https://<account-id>.r2.cloudflarestorage.com`)
   are not secrets.
 
