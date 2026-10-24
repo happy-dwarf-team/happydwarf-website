@@ -282,7 +282,8 @@ From [#18](https://github.com/happy-dwarf-team/.github/issues/18).
 One component holds title, description, canonical, Open Graph and Twitter tags, icons,
 `theme-color` `#16171a`, the sitemap link and JSON-LD.
 
-- **Canonical:** absolute, with a trailing slash.
+- **Canonical** and `og:url`: absolute, with a trailing slash. The 404 page has neither: it
+  answers every missing URL and has no address of its own.
 - **Open Graph and Twitter, on `/` and 404 alike:** `og:image` (absolute URL),
   `og:image:width` 1200, `og:image:height` 630, `og:image:alt` "Happy Dwarf Team, open-source
   tools and mods for Europa Universalis IV", `og:type` `website`, `og:locale` `en`,

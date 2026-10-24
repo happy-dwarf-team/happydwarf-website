@@ -1,0 +1,61 @@
+---
+// Everything in <head> after charset and viewport (docs/spec.md, section 5): title,
+// description, canonical, Open Graph and Twitter tags, icons, theme colour, the sitemap
+// link and the JSON-LD Organization. The images in public/ come from scripts/og-image.mjs
+// and scripts/icons.mjs.
+import { url } from '../lib/url';
+
+interface Props {
+	/** The page title without the site name, also used as og:title. */
+	title: string;
+}
+
+const siteName = 'Happy Dwarf Team';
+const description =
+	'Free, open-source tools and mods for Europa Universalis IV: the Anvil plugin loader and its plugins, tools for mod authors, and Anbennar mods.';
+const github = 'https://github.com/happy-dwarf-team';
+
+const { title } = Astro.props;
+// Crawlers need absolute URLs; Astro.site is SITE_URL and url() adds SITE_BASE.
+const absolute = (path: string) => new URL(url(path), Astro.site).href;
+// 404.html answers every missing URL, so it has no address of its own to name.
+const canonical = /\/404\/?$/.test(Astro.url.pathname)
+	? undefined
+	: new URL(Astro.url.pathname.replace(/\/?$/, '/'), Astro.site).href;
+const ogImage = absolute('og.png');
+
+const organization = {
+	'@context': 'https://schema.org',
+	'@type': 'Organization',
+	name: siteName,
+	url: absolute('/'),
+	logo: absolute('logo.png'),
+	sameAs: [github],
+};
+---
+
+<title>{`${title} | ${siteName}`}</title>
+<meta name="description" content={description} />
+{canonical && <link rel="canonical" href={canonical} />}
+<meta name="theme-color" content="#16171a" />
+
+<link rel="icon" href={url('favicon.svg')} type="image/svg+xml" />
+<link rel="icon" href={url('favicon.ico')} sizes="32x32" />
+<link rel="apple-touch-icon" href={url('apple-touch-icon.png')} />
+<link rel="sitemap" href={url('sitemap-index.xml')} />
+
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en" />
+{canonical && <meta property="og:url" content={canonical} />}
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Happy Dwarf Team, open-source tools and mods for Europa Universalis IV" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content={ogImage} />
+
+{/* A JSON data block for search engines, not a script the browser runs. "<" is escaped so the data cannot close the element. */}
+<script is:inline type="application/ld+json" set:html={JSON.stringify(organization).replace(/</g, '\\u003c')} />
