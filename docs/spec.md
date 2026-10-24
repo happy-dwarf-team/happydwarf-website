@@ -476,7 +476,13 @@ specification), with `U` an object URL
 Open checks from #25, each owned by a build issue:
 
 1. Does a cache hit filled without `Origin` still return CORS headers? If not, decide on
-   `crossorigin` or a cache-key rule. (Etch's first media publication.)
+   `crossorigin` or a cache-key rule. (Etch's first media publication.) **Answered: the
+   question cannot arise.** The cache keeps a separate entry per `Origin` (responses carry
+   `Vary: Origin`): after two range requests without `Origin` (`MISS`, then `HIT`), the first
+   request with each allowed `Origin` was a `MISS` with `Access-Control-Allow-Origin` set to it,
+   later ones `HIT` with the same header, and a disallowed `Origin` never got one. No
+   `crossorigin` attribute and no cache-key rule are needed
+   ([etch-website#7](https://github.com/happy-dwarf-team/etch-website/issues/7)).
 2. Does GitHub's certificate for the apex also cover `www`? Without it the HTTPS redirect on
    `.dev` (HSTS-preloaded) fails. (Hub launch, section 7.6.)
 3. Does the Cloudflare API MCP's OAuth grant include R2 and zone-settings scopes? If not, steps
@@ -490,7 +496,10 @@ Open checks from #25, each owned by a build issue:
 
 On the Free plan `argo/tiered_caching` reads `off` and is not editable, while
 `tiered_cache_smart_topology_enable` reads `on`. That Smart Tiered Cache is in effect without it
-is not verified; the cache-hit check above is the evidence that matters.
+is not verified: Cloudflare's documentation lists Tiered Cache and Smart Topology for the Free
+plan, but the analytics field that names the upper tier (`upperTierColoName`) is not available
+on Free, and a check from one machine reaches one data centre only. The cache-hit check above
+passed on the first upload ([etch-website#7](https://github.com/happy-dwarf-team/etch-website/issues/7)).
 
 ### 7.6 Launching `happydwarf.dev`
 
