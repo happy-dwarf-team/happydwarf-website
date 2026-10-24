@@ -435,6 +435,12 @@ otherwise through Wrangler (`wrangler login`); never a token in a file or chat.
    `PATCH /zones/{zone_id}/cache/tiered_cache_smart_topology_enable` with `{"value": "on"}`.
 7. **No cache or WAF rule**: WebM and MP4 are cached by default and the origin `Cache-Control`
    is honoured. Revisit only if anything other than video is ever put in the bucket.
+   **Bot Fight Mode off** (Security → Settings → Bot traffic, or `PUT
+   /zones/{zone_id}/bot_management` with `{"fight_mode": false}`): on the Free plan it cannot be
+   skipped by any rule, and it answered the Etch site's CI `HEAD` check from GitHub's runners
+   with a `403` challenge, as it would any `<video>` request it took for a bot. Only `media` is
+   proxied, so the setting reaches nothing else; Cloudflare's free managed WAF rules stay on
+   ([etch-website#7](https://github.com/happy-dwarf-team/etch-website/issues/7)).
 8. **Upload token** (section 7.4).
 
 ### 7.4 Upload token
@@ -464,7 +470,8 @@ specification), with `U` an object URL
 ([#25](https://github.com/happy-dwarf-team/.github/issues/25)):
 
 - Setup state: the domain is enabled with min TLS 1.2, `r2.dev` is disabled, CORS lists the
-  policy above, Smart Tiered Cache is on; `media` resolves to Cloudflare addresses.
+  policy above, Smart Tiered Cache is on, Bot Fight Mode is off; `media` resolves to Cloudflare
+  addresses.
 - `curl --range 0-99 "$U"` returns `206` with `content-range: bytes 0-99/<size>`.
 - A second request from the same machine returns `cf-cache-status: HIT`.
 - `Content-Type` and `Cache-Control: public, max-age=31536000, immutable` come back as uploaded.
@@ -476,7 +483,13 @@ specification), with `U` an object URL
 Open checks from #25, each owned by a build issue:
 
 1. Does a cache hit filled without `Origin` still return CORS headers? If not, decide on
-   `crossorigin` or a cache-key rule. (Etch's first media publication.)
+   `crossorigin` or a cache-key rule. (Etch's first media publication.) **Answered: the
+   question cannot arise.** The cache keeps a separate entry per `Origin` (responses carry
+   `Vary: Origin`): after two range requests without `Origin` (`MISS`, then `HIT`), the first
+   request with each allowed `Origin` was a `MISS` with `Access-Control-Allow-Origin` set to it,
+   later ones `HIT` with the same header, and a disallowed `Origin` never got one. No
+   `crossorigin` attribute and no cache-key rule are needed
+   ([etch-website#7](https://github.com/happy-dwarf-team/etch-website/issues/7)).
 2. Does GitHub's certificate for the apex also cover `www`? Without it the HTTPS redirect on
    `.dev` (HSTS-preloaded) fails. (Hub launch, section 7.6.)
 3. Does the Cloudflare API MCP's OAuth grant include R2 and zone-settings scopes? If not, steps
@@ -490,7 +503,10 @@ Open checks from #25, each owned by a build issue:
 
 On the Free plan `argo/tiered_caching` reads `off` and is not editable, while
 `tiered_cache_smart_topology_enable` reads `on`. That Smart Tiered Cache is in effect without it
-is not verified; the cache-hit check above is the evidence that matters.
+is not verified: Cloudflare's documentation lists Tiered Cache and Smart Topology for the Free
+plan, but the analytics field that names the upper tier (`upperTierColoName`) is not available
+on Free, and a check from one machine reaches one data centre only. The cache-hit check above
+passed on the first upload ([etch-website#7](https://github.com/happy-dwarf-team/etch-website/issues/7)).
 
 ### 7.6 Launching `happydwarf.dev`
 
