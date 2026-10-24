@@ -48,7 +48,8 @@ export interface ProjectGroup {
 	catalog?: { href: string; count: number };
 }
 
-const GROUPS: { id: GroupId; title: string; intro: string }[] = [
+// The three project groups in page order.
+export const GROUPS: { id: GroupId; title: string; intro: string }[] = [
 	{
 		id: 'anvil-ecosystem',
 		title: 'Anvil ecosystem',

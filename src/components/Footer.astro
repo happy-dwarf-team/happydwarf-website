@@ -1,0 +1,84 @@
+---
+// The footer on every page, 404 included (docs/spec.md, section 6): the favicon glyph, the
+// licence, the two GitHub links and the disclaimer. The hub shows no game art, so the
+// disclaimer has no game-art line.
+import glyph from '../assets/happy-dwarf-glyph.svg?raw';
+---
+
+<footer class="site-footer">
+	<div class="wrap">
+		<p class="brand">
+			<span class="glyph" aria-hidden="true" set:html={glyph} />
+			Happy Dwarf Team · MIT licensed
+		</p>
+		<ul class="links">
+			<li><a href="https://github.com/happy-dwarf-team/happydwarf-website">Source of this site</a></li>
+			<li><a href="https://github.com/happy-dwarf-team">GitHub organization</a></li>
+		</ul>
+		<p class="disclaimer">
+			Happy Dwarf Team projects are unofficial community projects, not affiliated with or
+			endorsed by Paradox Interactive. Europa Universalis and Paradox Interactive are
+			trademarks or registered trademarks of Paradox Interactive AB.
+		</p>
+	</div>
+</footer>
+
+<style>
+	.site-footer {
+		margin-top: 4rem;
+		border-top: 1px solid var(--forge-border);
+	}
+
+	.wrap {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem 2rem;
+		padding-block: 2rem calc(2.5rem + env(safe-area-inset-bottom, 0px));
+		color: var(--forge-text-muted);
+		font-size: 0.875rem;
+	}
+
+	.brand {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.6rem;
+	}
+
+	.glyph {
+		display: inline-flex;
+		color: var(--forge-accent);
+	}
+
+	.glyph :global(svg) {
+		width: 1.5rem;
+		height: 1.5rem;
+	}
+
+	.links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0 1.25rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.links a {
+		display: inline-flex;
+		align-items: center;
+		min-height: 44px;
+		color: var(--forge-text-muted);
+	}
+
+	.links a:hover {
+		color: var(--forge-text);
+	}
+
+	.disclaimer {
+		flex-basis: 100%;
+		max-width: 52rem;
+		font-size: 0.8125rem;
+	}
+</style>

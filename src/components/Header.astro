@@ -1,0 +1,163 @@
+---
+// The sticky site header on every page (docs/spec.md, section 3.1): skip link, team logo
+// and wordmark, the three section anchors and the GitHub link. Two rows below 560 px, one
+// row from 560 px; no menu button.
+import { url } from '../lib/url';
+import logo from '../assets/happy-dwarf.svg?url';
+
+const sections = [
+	{ id: 'projects', label: 'Projects' },
+	{ id: 'about', label: 'About' },
+	{ id: 'get-involved', label: 'Get involved' },
+];
+---
+
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+	<div class="wrap">
+		<a class="brand" href={url('/')}>
+			<img src={logo} alt="" width="32" height="32" />
+			Happy Dwarf
+		</a>
+		<nav class="nav" aria-label="Main">
+			<ul>
+				{
+					sections.map(({ id, label }) => (
+						<li>
+							<a href={`${url('/')}#${id}`}>{label}</a>
+						</li>
+					))
+				}
+			</ul>
+		</nav>
+		<a class="github" href="https://github.com/happy-dwarf-team">
+			<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+				<path
+					fill="currentColor"
+					d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.6 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"
+				></path>
+			</svg>
+			<span class="sr-only">Happy Dwarf Team on GitHub</span>
+		</a>
+	</div>
+</header>
+
+<style>
+	.skip {
+		position: absolute;
+		top: -4rem;
+		left: 1rem;
+		z-index: 50;
+		padding: 0.6rem 1rem;
+		border-radius: 0.5rem;
+		background: var(--forge-accent);
+		color: var(--forge-on-accent);
+		font-weight: 600;
+		text-decoration: none;
+	}
+
+	.skip:focus {
+		top: calc(0.75rem + env(safe-area-inset-top, 0px));
+	}
+
+	.site-header {
+		position: sticky;
+		top: 0;
+		z-index: 20;
+		padding-top: env(safe-area-inset-top, 0px);
+		border-bottom: 1px solid var(--forge-border);
+		background: color-mix(in srgb, var(--forge-bg) 92%, transparent);
+		backdrop-filter: blur(8px);
+	}
+
+	/* Below 560 px: logo and GitHub on top, the anchors in one row below. */
+	.wrap {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		grid-template-areas:
+			'brand github'
+			'nav nav';
+		align-items: center;
+		align-content: center;
+		column-gap: 1rem;
+		min-height: var(--header-height);
+	}
+
+	.brand {
+		grid-area: brand;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.6rem;
+		justify-self: start;
+		min-height: 44px;
+		color: var(--forge-text);
+		font: 700 0.95rem/1 var(--forge-font-mono);
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		text-decoration: none;
+	}
+
+	.brand img {
+		display: block;
+		width: 2rem;
+		height: 2rem;
+	}
+
+	.nav {
+		grid-area: nav;
+		/* Lines the first anchor's text up with the logo. */
+		margin-left: -0.7rem;
+	}
+
+	.nav ul {
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.nav a,
+	.github {
+		display: inline-flex;
+		align-items: center;
+		min-height: 44px;
+		border-radius: 0.5rem;
+		color: var(--forge-text-muted);
+		text-decoration: none;
+		transition:
+			color 160ms var(--forge-ease),
+			background-color 160ms var(--forge-ease);
+	}
+
+	.nav a {
+		padding-inline: 0.7rem;
+		font-size: 0.95rem;
+		white-space: nowrap;
+	}
+
+	.nav a:hover,
+	.github:hover {
+		background: var(--forge-surface);
+		color: var(--forge-text);
+	}
+
+	.github {
+		grid-area: github;
+		justify-content: center;
+		width: 44px;
+	}
+
+	@media (min-width: 560px) {
+		.wrap {
+			grid-template-columns: 1fr auto auto;
+			grid-template-areas: 'brand nav github';
+			column-gap: 0.25rem;
+		}
+
+		.nav {
+			margin-left: 0;
+		}
+	}
+</style>

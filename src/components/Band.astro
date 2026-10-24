@@ -1,0 +1,71 @@
+---
+// A Ledger band (DESIGN.md, "Ledger band"): the shape of every project group, About and
+// Get involved. The rail holds the heading, an optional intro and count; the slot holds the
+// band's rows. From 900 px the rail sits beside the rows and stays under the header.
+interface Props {
+	id: string;
+	title: string;
+	intro?: string;
+	/** "2 plugins", "3 projects"; About and Get involved have none. */
+	count?: string;
+}
+
+const { id, title, intro, count } = Astro.props;
+---
+
+<section class="band" id={id} aria-labelledby={`${id}-heading`}>
+	<div class="rail">
+		<h2 id={`${id}-heading`}>{title}</h2>
+		{intro && <p class="intro">{intro}</p>}
+		{count && <p class="count">{count}</p>}
+	</div>
+	<div class="content">
+		<slot />
+	</div>
+</section>
+
+<style>
+	.band {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: 1rem 3rem;
+		padding-block: 2.5rem;
+		border-top: 1px solid var(--forge-border);
+	}
+
+	.rail {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	h2 {
+		font-size: 1.3rem;
+	}
+
+	.intro {
+		max-width: 44rem;
+		color: var(--forge-text-muted);
+	}
+
+	.count {
+		color: var(--forge-text-muted);
+		font: 500 0.8125rem/1.4 var(--forge-font-mono);
+	}
+
+	.content {
+		min-width: 0;
+	}
+
+	@media (min-width: 900px) {
+		.band {
+			grid-template-columns: 17rem minmax(0, 1fr);
+		}
+
+		.rail {
+			position: sticky;
+			top: calc(var(--header-height) + 1.75rem);
+			align-self: start;
+		}
+	}
+</style>

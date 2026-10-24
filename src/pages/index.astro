@@ -1,46 +1,254 @@
 ---
-// Placeholder until the home page is built (docs/spec.md, section 3). It lists the project
-// data with the family styles only, so every build already fetches and checks it.
+// The home page, the "Ledger" layout (docs/spec.md, section 3.1; DESIGN.md, "This site"):
+// hero, the three project groups, About and Get involved. Header and footer come from Base.
 import Base from '../layouts/Base.astro';
+import Band from '../components/Band.astro';
+import ProjectRow from '../components/ProjectRow.astro';
 import { getProjectGroups } from '../lib/projects';
+import logo from '../assets/happy-dwarf.svg?url';
 
 const groups = await getProjectGroups();
+// "1 plugin", "2 plugins".
+const countLabel = (count: number, unit: string) => `${count} ${count === 1 ? unit.slice(0, -1) : unit}`;
+
+const github = 'https://github.com/happy-dwarf-team';
+const orgFile = (name: string) => `${github}/.github/blob/main/${name}`;
 ---
 
 <Base title="Tools and mods for Europa Universalis IV">
-	<main>
-		<h1>Happy Dwarf Team</h1>
-		<p>
-			Open-source tools and mods for Europa Universalis IV. This site is being built; the
-			projects are on <a href="https://github.com/happy-dwarf-team">GitHub</a>.
-		</p>
+	<section class="hero" aria-labelledby="hero-heading">
+		<div class="text">
+			<p class="eyebrow">Happy Dwarf Team</p>
+			<h1 id="hero-heading">Open-source tools and mods for Europa Universalis IV.</h1>
+			<p class="lead">They work beside the game, not inside its files.</p>
+			<ul class="audience" aria-label="Made for">
+				<li>Players</li>
+				<li>Mod authors</li>
+				<li>Plugin authors</li>
+			</ul>
+			<a class="link" href={`#${groups[0].id}`}>See the projects <span aria-hidden="true">↓</span></a>
+		</div>
+		<img class="logo" src={logo} alt="" width="208" height="208" />
+	</section>
+
+	<div id="projects">
 		{
 			groups.map((group) => (
-				<section aria-labelledby={group.id}>
-					<h2 id={group.id}>{group.title}</h2>
-					<p>
-						{group.intro} {group.count} {group.unit}.
-					</p>
-					<ul>
+				<Band id={group.id} title={group.title} intro={group.intro} count={countLabel(group.count, group.unit)}>
+					<ul class="rows">
 						{group.rows.map((row) => (
-							<li>
-								<a href={row.primary.href}>{row.name}</a>
-								{row.badge && ` (${row.badge.kind === 'version' ? `v${row.badge.version}` : row.badge.label})`}
-								: {row.summary}
-							</li>
+							<ProjectRow row={row} />
 						))}
 					</ul>
 					{group.catalog && (
-						<p>
-							<a href={group.catalog.href}>All {group.catalog.count} plugins in the Anvil catalog</a>
-						</p>
+						<a class="catalog" href={group.catalog.href}>
+							All {group.catalog.count} plugins in the Anvil catalog{' '}
+							<span class="arrow" aria-hidden="true">→</span>
+						</a>
 					)}
-				</section>
+				</Band>
 			))
 		}
-		<p>
-			Happy Dwarf Team projects are unofficial community projects, not affiliated with or
-			endorsed by Paradox Interactive.
+	</div>
+
+	<Band id="about" title="About">
+		<p class="about">
+			Happy Dwarf is a small volunteer team. We name our tools after the forge because we like
+			work that is made slowly and meant to last, and because a dwarf without a hammer is just a
+			short man with a beard.
 		</p>
-	</main>
+		<dl class="principles">
+			<div>
+				<dt>Never touch the game’s files</dt>
+				<dd>No changes to <code>eu4.exe</code>, and Steam file checks keep working.</dd>
+			</div>
+			<div>
+				<dt>Open source, MIT, free</dt>
+				<dd>No payments and no data collection.</dd>
+			</div>
+			<div>
+				<dt>Claims we can back up</dt>
+				<dd>Measurements are labelled with their source; unverified things are marked as unverified.</dd>
+			</div>
+		</dl>
+	</Band>
+
+	<Band id="get-involved" title="Get involved">
+		<dl class="paths">
+			<div>
+				<dt>Need help installing?</dt>
+				<dd>
+					Follow the <a href="https://anvil.happydwarf.dev/docs/install/">Anvil install guide</a>,
+					then <a href={orgFile('SUPPORT.md')}>where to get help</a>.
+				</dd>
+			</div>
+			<div>
+				<dt>Found a bug or have an idea?</dt>
+				<dd>Open an issue in the <a href="https://github.com/orgs/happy-dwarf-team/repositories">repository of the project</a> it concerns.</dd>
+			</div>
+			<div>
+				<dt>Want to contribute?</dt>
+				<dd>
+					Read the <a href={orgFile('CONTRIBUTING.md')}>contributing guide</a>. Plugin authors start
+					from the <a href={`${github}/anvil-plugin-template`}>Plugin template</a>.
+				</dd>
+			</div>
+			<div>
+				<dt>Security problem?</dt>
+				<dd>Report it privately, as the <a href={orgFile('SECURITY.md')}>security policy</a> explains.</dd>
+			</div>
+		</dl>
+		<p class="closing">Volunteer projects, answers can take a few days.</p>
+	</Band>
 </Base>
+
+<style>
+	.hero {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: 2rem;
+		align-items: center;
+		padding-block: 3rem;
+	}
+
+	.text {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 1.1rem;
+		min-width: 0;
+	}
+
+	.eyebrow {
+		color: var(--forge-accent);
+		font: 500 0.8125rem/1.4 var(--forge-font-mono);
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+	}
+
+	h1 {
+		max-width: 18ch;
+		font-size: clamp(2rem, 1.3rem + 3.4vw, 3.6rem);
+		line-height: 1.08;
+	}
+
+	.lead {
+		max-width: 34rem;
+		color: var(--forge-text-muted);
+		font-size: 1.2rem;
+	}
+
+	.audience {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.audience li {
+		padding: 0.25rem 0.75rem;
+		border: 1px solid var(--forge-border);
+		border-radius: 999px;
+		font-size: 0.875rem;
+	}
+
+	/* Above the text on narrow screens, beside it from 900 px. */
+	.logo {
+		order: -1;
+		width: clamp(6rem, 18vw, 13rem);
+		height: auto;
+	}
+
+	.rows {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.catalog {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		min-height: 44px;
+		margin-top: 0.75rem;
+		padding: 0.6rem 1rem;
+		border: 1px dashed var(--forge-border);
+		border-radius: var(--forge-radius);
+		font-weight: 500;
+		text-decoration: none;
+		transition: border-color 180ms var(--forge-ease);
+	}
+
+	.catalog:hover {
+		border-color: var(--forge-accent);
+	}
+
+	.about {
+		max-width: 44rem;
+		margin-bottom: 1.5rem;
+	}
+
+	dl,
+	dd {
+		margin: 0;
+	}
+
+	dt {
+		font-weight: 600;
+	}
+
+	dd {
+		color: var(--forge-text-muted);
+	}
+
+	/* Each principle a ruled row: the name in mono on the left, one line on the right. */
+	.principles div {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.25rem 1rem;
+		padding-block: 0.9rem;
+		border-top: 1px solid var(--forge-border);
+	}
+
+	.principles dt {
+		flex: 0 0 16rem;
+		font-family: var(--forge-font-mono);
+		font-weight: 700;
+	}
+
+	.principles dd {
+		flex: 1 1 18rem;
+	}
+
+	.paths {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+		gap: 0 2rem;
+	}
+
+	.paths div {
+		display: flex;
+		flex-direction: column;
+		gap: 0.15rem;
+		padding-block: 1rem;
+		border-top: 1px solid var(--forge-border);
+	}
+
+	.closing {
+		margin-top: 1rem;
+		color: var(--forge-text-muted);
+	}
+
+	@media (min-width: 900px) {
+		.hero {
+			grid-template-columns: minmax(0, 1fr) auto;
+			padding-block: 5rem 4rem;
+		}
+
+		.logo {
+			order: 0;
+		}
+	}
+</style>

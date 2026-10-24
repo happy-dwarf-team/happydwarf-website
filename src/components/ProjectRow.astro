@@ -1,0 +1,183 @@
+---
+// One project row of a Ledger band (DESIGN.md, "Project row" and "Featured row"): icon,
+// name linking to the primary destination, status badge, summary and links. Only the
+// links are clickable; the row itself is not.
+import type { ProjectRow } from '../lib/projects';
+
+interface Props {
+	row: ProjectRow;
+}
+
+const { row } = Astro.props;
+// Summaries write `code` spans in backticks: every odd part is code.
+const summary = row.summary.split('`');
+const classes = ['row', row.featured && 'featured', row.archived && 'archived'];
+---
+
+<li class:list={classes}>
+	<span
+		class="icon"
+		aria-hidden="true"
+		style={row.accent ? `color: ${row.accent}` : undefined}
+		set:html={row.icon ?? ''}
+	/>
+	<h3><a href={row.primary.href}>{row.name}</a></h3>
+	{
+		row.badge &&
+			(row.badge.kind === 'version' ? (
+				<span class="badge version">
+					<span class="sr-only">Latest version </span>v{row.badge.version}
+				</span>
+			) : (
+				<span class="badge">{row.badge.label}</span>
+			))
+	}
+	<p class="summary">{summary.map((part, i) => (i % 2 ? <code>{part}</code> : part))}</p>
+	<p class="links">
+		<a class={row.featured ? 'button' : 'link'} href={row.primary.href}>
+			{row.primary.label} <span class="arrow" aria-hidden="true">→</span>
+		</a>
+		{row.source && <a class="link quiet" href={row.source}>Source on GitHub</a>}
+	</p>
+</li>
+
+<style>
+	.row {
+		display: grid;
+		grid-template-columns: 2rem minmax(0, 1fr) auto;
+		grid-template-areas:
+			'icon name badge'
+			'icon summary summary'
+			'icon links links';
+		gap: 0.25rem 1rem;
+		padding: 1.1rem 0.75rem;
+		border-bottom: 1px solid var(--forge-border);
+		transition: background-color 180ms var(--forge-ease);
+	}
+
+	.row:last-child {
+		border-bottom: 0;
+	}
+
+	.row:hover,
+	.row:focus-within {
+		background: linear-gradient(90deg, var(--forge-surface), transparent);
+	}
+
+	.icon {
+		grid-area: icon;
+		display: block;
+		width: 2rem;
+		height: 2rem;
+		margin-top: 0.1rem;
+		color: var(--forge-accent);
+	}
+
+	.icon :global(svg) {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	h3 {
+		grid-area: name;
+		align-self: center;
+		font-size: 1.1rem;
+		line-height: 1.3;
+		overflow-wrap: anywhere;
+	}
+
+	h3 a {
+		color: var(--forge-text);
+		text-decoration: none;
+	}
+
+	h3 a:hover {
+		text-decoration: underline;
+	}
+
+	.badge {
+		grid-area: badge;
+		align-self: center;
+		padding: 0.1rem 0.6rem;
+		border: 1px solid var(--forge-border);
+		border-radius: 999px;
+		color: var(--forge-text-muted);
+		font-size: 0.8125rem;
+		font-weight: 500;
+		line-height: 1.5;
+		white-space: nowrap;
+	}
+
+	.badge.version {
+		border-color: var(--forge-accent);
+		color: var(--forge-accent-strong);
+		font-family: var(--forge-font-mono);
+	}
+
+	.summary {
+		grid-area: summary;
+		max-width: 44rem;
+		color: var(--forge-text-muted);
+	}
+
+	.links {
+		grid-area: links;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.25rem 1.25rem;
+	}
+
+	/* Anvil's row: the only boxed row and the only filled button. */
+	.featured {
+		grid-template-columns: 2.75rem minmax(0, 1fr) auto;
+		margin-bottom: 0.5rem;
+		padding: 1.5rem;
+		border: 1px solid color-mix(in srgb, var(--forge-accent) 45%, var(--forge-border));
+		border-radius: var(--forge-radius);
+		background: var(--forge-surface);
+	}
+
+	.featured:last-child {
+		border-bottom: 1px solid color-mix(in srgb, var(--forge-accent) 45%, var(--forge-border));
+	}
+
+	.featured:hover,
+	.featured:focus-within {
+		background: var(--forge-surface);
+	}
+
+	.featured .icon {
+		width: 2.75rem;
+		height: 2.75rem;
+	}
+
+	.featured h3 {
+		font-size: 1.5rem;
+	}
+
+	.featured .summary {
+		color: var(--forge-text);
+		font-size: 1.05rem;
+	}
+
+	.featured .links {
+		margin-top: 0.5rem;
+	}
+
+	.archived h3 a,
+	.archived .summary {
+		color: var(--forge-text-muted);
+	}
+
+	@media (max-width: 559px) {
+		.featured {
+			padding: 1.25rem 1rem;
+		}
+
+		.featured h3 {
+			font-size: 1.3rem;
+		}
+	}
+</style>
