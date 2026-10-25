@@ -626,7 +626,6 @@ The build issues that implement this specification, under the tracking issue in
 - Contrast values in [DESIGN.md](../DESIGN.md) are computed, not measured in a browser.
 - The disclaimer wording is our interpretation of the Paradox User Agreement, not checked by a
   lawyer or Paradox; not legal advice.
-- The bucket, its custom domain, CORS and Smart Tiered Cache are set up
-  ([#7](https://github.com/happy-dwarf-team/happydwarf-website/issues/7)), but no object has
-  been served yet: range requests, cache hits, CORS on a cache hit and iOS playback are checked
-  in Etch's first media publication.
+- Safari on iOS playing the loop inline (section 7.5) has not been checked. Range requests,
+  cache hits and CORS on a cache hit were checked on the first media upload
+  ([etch-website#7](https://github.com/happy-dwarf-team/etch-website/issues/7)).
