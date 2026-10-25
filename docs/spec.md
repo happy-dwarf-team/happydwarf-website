@@ -372,7 +372,10 @@ Every web record of the `happydwarf.dev` zone and its proxy status
 - State when this was written (read through public DNS, 2026-10-24): apex has only Email Routing
   records, `anvil` exists, `www`, `etch` and `media` do not; nothing collides. Since 2026-10-24
   `media` exists as R2's read-only proxied CNAME to `public.r2.dev`
-  ([#7](https://github.com/happy-dwarf-team/happydwarf-website/issues/7)).
+  ([#7](https://github.com/happy-dwarf-team/happydwarf-website/issues/7)). Since 2026-10-25
+  `etch` ([etch-website#8](https://github.com/happy-dwarf-team/etch-website/issues/8)), the
+  apex A/AAAA and `www` ([#8](https://github.com/happy-dwarf-team/happydwarf-website/issues/8))
+  exist as in the table; every record above is in place.
 
 ### 7.2 Media bucket
 
@@ -491,7 +494,10 @@ Open checks from #25, each owned by a build issue:
    `crossorigin` attribute and no cache-key rule are needed
    ([etch-website#7](https://github.com/happy-dwarf-team/etch-website/issues/7)).
 2. Does GitHub's certificate for the apex also cover `www`? Without it the HTTPS redirect on
-   `.dev` (HSTS-preloaded) fails. (Hub launch, section 7.6.)
+   `.dev` (HSTS-preloaded) fails. (Hub launch, section 7.6.) **Answered: yes.** The certificate
+   GitHub issued for the apex lists `happydwarf.dev` and `www.happydwarf.dev`, and
+   `https://www.happydwarf.dev/` answers `301` to `https://happydwarf.dev/` with it
+   ([#8](https://github.com/happy-dwarf-team/happydwarf-website/issues/8)).
 3. Does the Cloudflare API MCP's OAuth grant include R2 and zone-settings scopes? If not, steps
    2–7 go through Wrangler. (Bucket setup.) **Answered: yes.** Steps 2–7 all went through the
    MCP's `execute` tool: bucket create, custom domain with `minTLS`, `r2.dev` and CORS, the
@@ -517,7 +523,13 @@ In this order, only after the Etch site has launched:
    DNS** (`PUT /repos/happy-dwarf-team/happydwarf-website/pages` with `{"cname": "happydwarf.dev"}`)
    and set the repository variable `CUSTOM_DOMAIN`. A custom workflow ignores any `CNAME` file.
 3. Add the apex A/AAAA and the `www` CNAME of section 7.1, **DNS only**.
-4. Wait for the certificate, then **Enforce HTTPS**.
+4. Wait for the certificate, then **Enforce HTTPS**. GitHub checks DNS when the custom domain
+   is saved, so with the domain set before DNS it may never request the certificate
+   (`https_certificate` stays `null` while the health check is green; saving the same value
+   again did not help). Once the records resolve, remove the custom domain
+   (`{"cname": null}`) and set it again: both launches got the certificate within minutes
+   ([etch-website#8](https://github.com/happy-dwarf-team/etch-website/issues/8),
+   [#8](https://github.com/happy-dwarf-team/happydwarf-website/issues/8)).
 5. Check: `Resolve-DnsName` shows GitHub's addresses for the apex and the CNAME for `www`;
    `gh api repos/happy-dwarf-team/happydwarf-website/pages` shows `protected_domain_state`
    `verified`, `https_enforced` true and the certificate approved;
@@ -617,5 +629,4 @@ The build issues that implement this specification, under the tracking issue in
 - The bucket, its custom domain, CORS and Smart Tiered Cache are set up
   ([#7](https://github.com/happy-dwarf-team/happydwarf-website/issues/7)), but no object has
   been served yet: range requests, cache hits, CORS on a cache hit and iOS playback are checked
-  in Etch's first media publication. The apex and `www` records and their certificate do not
-  exist yet (section 7.6).
+  in Etch's first media publication.
