@@ -70,9 +70,9 @@ The link and axe scripts are copied from `anvil-website`'s `scripts/check-links.
   queues deployments instead of running them in parallel; pull requests build in their own
   group. Its `build` job runs `npm ci`, `check`, `build` (with `GITHUB_TOKEN` for the API),
   `check:links` and `check:a11y`; the `deploy` job publishes `dist/` to Pages except on pull
-  requests. Repository variable
-  `CUSTOM_DOMAIN` switches `SITE_URL`/`SITE_BASE` from the github.io preview to the custom
-  domain, as in `anvil-website`. Actions are pinned by commit SHA.
+  requests. Repository variable `CUSTOM_DOMAIN` switches `SITE_URL`/`SITE_BASE` from the
+  github.io preview to the custom domain, as in `anvil-website`. Actions are pinned by commit
+  SHA.
 - **`pr-title`** workflow with the `conventional-title` job, copied from `anvil-website`.
 - **Pages source:** "GitHub Actions" (`build_type: workflow`).
 - **Ruleset `main`**, as `anvil-website`'s: no deletion, no force push, linear history, pull
