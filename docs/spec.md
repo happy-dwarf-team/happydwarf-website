@@ -67,8 +67,8 @@ The link and axe scripts are copied from `anvil-website`'s `scripts/check-links.
   `plugin-release`, `project-release`; section 4.5) and a **`schedule` every six hours**
   ([#9](https://github.com/happy-dwarf-team/.github/issues/9),
   [#10](https://github.com/happy-dwarf-team/.github/issues/10)). The `pages` concurrency group
-  queues runs instead of deploying in parallel. Its `build` job runs
-  `npm ci`, `check`, `build` (with `GITHUB_TOKEN` for the API), `check:links` and `check:a11y`;
+  queues deployments instead of running them in parallel; pull requests build in their own
+  group. Its `build` job runs `npm ci`, `check`, `build` (with `GITHUB_TOKEN` for the API), `check:links` and `check:a11y`;
   the `deploy` job publishes `dist/` to Pages except on pull requests. Repository variable
   `CUSTOM_DOMAIN` switches `SITE_URL`/`SITE_BASE` from the github.io preview to the custom
   domain, as in `anvil-website`. Actions are pinned by commit SHA.

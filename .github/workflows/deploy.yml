@@ -20,9 +20,10 @@ permissions:
 
 # Several releases at once queue behind the running build instead of deploying in
 # parallel; a newer pending run replaces an older one, and every build reads the latest
-# releases.
+# releases. Pull requests get their own group, so a pending pull request build never
+# replaces a pending deployment.
 concurrency:
-  group: pages
+  group: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.ref) || 'pages' }}
   cancel-in-progress: false
 
 jobs:
