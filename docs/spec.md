@@ -63,9 +63,11 @@ The link and axe scripts are copied from `anvil-website`'s `scripts/check-links.
 ### 2.3 Workflows, ruleset and repository files
 
 - **`deploy`** workflow, modelled on `anvil-website`'s: runs on `push` to `main`,
-  `pull_request`, `workflow_dispatch` and a **daily `schedule`**; **no `repository_dispatch`**
+  `pull_request`, `workflow_dispatch`, **`repository_dispatch`** (`anvil-release`,
+  `plugin-release`, `project-release`; section 4.5) and a **`schedule` every six hours**
   ([#9](https://github.com/happy-dwarf-team/.github/issues/9),
-  [#10](https://github.com/happy-dwarf-team/.github/issues/10)). Its `build` job runs
+  [#10](https://github.com/happy-dwarf-team/.github/issues/10)). The `pages` concurrency group
+  queues runs instead of deploying in parallel. Its `build` job runs
   `npm ci`, `check`, `build` (with `GITHUB_TOKEN` for the API), `check:links` and `check:a11y`;
   the `deploy` job publishes `dist/` to Pages except on pull requests. Repository variable
   `CUSTOM_DOMAIN` switches `SITE_URL`/`SITE_BASE` from the github.io preview to the custom
@@ -214,7 +216,7 @@ launches after the Etch site ([#12](https://github.com/happy-dwarf-team/.github/
   contract is in section 7.7.
 - **Fetch failure fails the build:** if `plugins.json` cannot be fetched or does not pass the
   hub's zod schema, `npm run build` exits non-zero. Pages keeps serving the last good
-  deployment and the daily cron retries. There is no fallback copy in this repository.
+  deployment and the next scheduled build retries. There is no fallback copy in this repository.
 - **Which plugins get rows:** only plugins whose `repo` is in `happy-dwarf-team`, and not those
   with status `planned`. Their row uses `name`, `tagline` (as the summary), `url` (primary
   destination, label "Plugin page"), `repo` ("Source on GitHub") and `icon` (inlined SVG with
@@ -240,7 +242,7 @@ Every row shows one status badge, decided in this order
 
 The badge never says "No release yet". **If the release data cannot be fetched** (network,
 rate limit, API error), the build continues: that row shows no badge and the build log carries
-a warning, as `anvil-website`'s `release.ts` does. The daily build corrects it. (Decided with
+a warning, as `anvil-website`'s `release.ts` does. The next build corrects it. (Decided with
 @s-tyda while writing this spec; the map left it open.)
 
 The row has no stars, no update date and no technology tags.
@@ -259,9 +261,21 @@ The row has no stars, no update date and no technology tags.
 
 ### 4.5 Freshness
 
-The site rebuilds on push, `workflow_dispatch` and once a day. A version or a new plugin can lag
-by up to a day; no project repository needs a token for the hub. Add a dispatch only if that lag
-starts to matter ([#9](https://github.com/happy-dwarf-team/.github/issues/9)).
+The site rebuilds on push, `workflow_dispatch`, `repository_dispatch` and every six hours
+(`17 */6 * * *`). Once a release is public, its repository sends a `repository_dispatch` to the
+hub, so the new version shows within minutes:
+
+| Sender | Event type | When |
+| --- | --- | --- |
+| `anvil` | `anvil-release` | `release.yml` has published the release (its `website.yml`) |
+| `bellows`, `tongs` | `plugin-release` | the draft release is published (`website.yml`) |
+| `etch`, `paradox-workshop-publish` | `project-release` | `release.yml` has attached the release files (its `website.yml`) |
+
+Each sender's `website.yml` uses the organization secret `WEBSITE_DISPATCH_TOKEN`, a
+fine-grained token with **Contents: write** on every receiving site; without the secret it skips
+the dispatch with a notice. `website.yml` can also be run by hand to resend the dispatch. The
+schedule is the safety net for a missed dispatch and picks up what sends none: `plugins.json`
+changes (section 4.2) and releases of the other projects, which can lag by up to six hours.
 
 ## 5. Head, social preview and icons
 

@@ -1,6 +1,6 @@
 // Reads the latest release of a project from the GitHub API at build time, for its status
 // badge (docs/spec.md, section 4.3). A failure never fails the build: the row shows no badge,
-// the log carries a warning and the daily build corrects it.
+// the log carries a warning and the next build corrects it.
 
 const versions = new Map<string, Promise<string | null | undefined>>();
 
