@@ -27,6 +27,8 @@ export interface ProjectRow {
 	primary: { href: string; label: string };
 	// "Source on GitHub", set when the primary destination is not the repository.
 	source?: string;
+	// "Steam Workshop", set for a plugin whose mod is on the Workshop.
+	workshop?: string;
 	// Inline SVG markup in the family icon grammar; its accent is currentColor. A plugin
 	// without an icon has none.
 	icon: string | null;
@@ -88,6 +90,11 @@ const pluginsJsonSchema = z.object({
 					message: 'must be SVG markup without scripts or event handlers',
 				})
 				.nullable(),
+			// The plugin's Workshop item page; missing or null without one.
+			workshop: z
+				.string()
+				.regex(/^https:\/\/steamcommunity\.com\/sharedfiles\/filedetails\/\?id=\d+$/)
+				.nullish(),
 		}),
 	),
 });
@@ -166,6 +173,7 @@ async function pluginRow(plugin: CatalogPlugin): Promise<ProjectRow> {
 		badge: await badgeFor(plugin.status === 'released' ? 'released' : 'preview', plugin.repo),
 		primary: { href: plugin.url, label: 'Plugin page' },
 		source: plugin.repo,
+		workshop: plugin.workshop ?? undefined,
 		icon: plugin.icon?.trim() ?? null,
 		featured: false,
 		archived: false,

@@ -169,8 +169,9 @@ The shape of every project group, About and Get involved: a two-column band.
 
 - A grid of three areas: **icon** (32 px) | **name** (h3, mono, links to the primary
   destination) | **status badge** on the right. Under the name the **summary** (muted, at most
-  about 44 rem wide), then the **links**: the primary destination in the accent with a "→", and
-  "Source on GitHub" in muted text when the primary destination is not the repository.
+  about 44 rem wide), then the **links**: the primary destination in the accent with a "→",
+  "Source on GitHub" in muted text when the primary destination is not the repository, and
+  "Steam Workshop" in muted text for a plugin whose mod is on the Workshop.
 - Rows are separated by 1 px `--forge-border` rules, with no box around them.
 - On hover or keyboard focus inside the row (`:focus-within`), the row gets a faint
   `--forge-surface` background. Only the explicit links are clickable; there is no whole-row
