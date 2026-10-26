@@ -68,8 +68,9 @@ The link and axe scripts are copied from `anvil-website`'s `scripts/check-links.
   ([#9](https://github.com/happy-dwarf-team/.github/issues/9),
   [#10](https://github.com/happy-dwarf-team/.github/issues/10)). The `pages` concurrency group
   queues deployments instead of running them in parallel; pull requests build in their own
-  group. Its `build` job runs `npm ci`, `check`, `build` (with `GITHUB_TOKEN` for the API), `check:links` and `check:a11y`;
-  the `deploy` job publishes `dist/` to Pages except on pull requests. Repository variable
+  group. Its `build` job runs `npm ci`, `check`, `build` (with `GITHUB_TOKEN` for the API),
+  `check:links` and `check:a11y`; the `deploy` job publishes `dist/` to Pages except on pull
+  requests. Repository variable
   `CUSTOM_DOMAIN` switches `SITE_URL`/`SITE_BASE` from the github.io preview to the custom
   domain, as in `anvil-website`. Actions are pinned by commit SHA.
 - **`pr-title`** workflow with the `conventional-title` job, copied from `anvil-website`.
