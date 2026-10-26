@@ -575,7 +575,8 @@ and read by the hub at build time (section 4.2).
       "status": "released",
       "order": 1,
       "url": "https://anvil.happydwarf.dev/plugins/bellows/",
-      "icon": "<svg viewBox=\"0 0 32 32\" …>…</svg>"
+      "icon": "<svg viewBox=\"0 0 32 32\" …>…</svg>",
+      "workshop": "https://steamcommunity.com/sharedfiles/filedetails/?id=3823747170"
     }
   ]
 }
@@ -590,6 +591,11 @@ and read by the hub at build time (section 4.2).
 - `url`: the absolute URL of the plugin's catalog page, with a trailing slash.
 - `icon`: the SVG markup of `src/assets/plugins/<id>.svg`, or `null` for a plugin without an
   icon file. The hub sets `currentColor`.
+- `workshop`: the Steam Workshop item page of the plugin's mod, built from the optional
+  `workshop` item id in the catalog frontmatter, or `null` for a plugin without one. Added
+  after `schemaVersion` 1 in
+  [anvil-website#44](https://github.com/happy-dwarf-team/anvil-website/pull/44); the hub does
+  not show it.
 - `schemaVersion` changes only on a breaking change. Adding a field is not breaking, and the hub
   ignores fields it does not know.
 
