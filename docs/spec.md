@@ -271,12 +271,14 @@ hub, so the new version shows within minutes:
 | `anvil` | `anvil-release` | `release.yml` has published the release (its `website.yml`) |
 | `bellows`, `tongs` | `plugin-release` | the draft release is published (`website.yml`) |
 | `etch`, `paradox-workshop-publish` | `project-release` | `release.yml` has attached the release files (its `website.yml`) |
+| `eu4-anbennar-widescreen-loading-screens` | `project-release` | the draft release is published (`website.yml`) |
 
 Each sender's `website.yml` uses the organization secret `WEBSITE_DISPATCH_TOKEN`, a
 fine-grained token with **Contents: write** on every receiving site; without the secret it skips
 the dispatch with a notice. `website.yml` can also be run by hand to resend the dispatch. The
 schedule is the safety net for a missed dispatch and picks up what sends none: `plugins.json`
-changes (section 4.2) and releases of the other projects, which can lag by up to six hours.
+changes (section 4.2) and releases of projects without a `website.yml`, which can lag by up to
+six hours. An `archived` project (section 4.3) shows no version, so it sends none.
 
 ## 5. Head, social preview and icons
 

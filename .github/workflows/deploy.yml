@@ -6,8 +6,9 @@ on:
   pull_request:
   workflow_dispatch:
   # Sent after a published release by happy-dwarf-team/anvil (anvil-release), its plugin
-  # repositories (plugin-release), etch and paradox-workshop-publish (project-release), so
-  # the badges show the new version within minutes (docs/spec.md, section 4.5).
+  # repositories (plugin-release), etch, paradox-workshop-publish and the maintained mods
+  # (project-release), so the badges show the new version within minutes (docs/spec.md,
+  # section 4.5).
   repository_dispatch:
     types: [anvil-release, plugin-release, project-release]
   # Safety net for a missed dispatch, and picks up plugins.json changes and releases of
