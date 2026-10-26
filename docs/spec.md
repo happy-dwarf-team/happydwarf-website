@@ -220,7 +220,8 @@ launches after the Etch site ([#12](https://github.com/happy-dwarf-team/.github/
   deployment and the next scheduled build retries. There is no fallback copy in this repository.
 - **Which plugins get rows:** only plugins whose `repo` is in `happy-dwarf-team`, and not those
   with status `planned`. Their row uses `name`, `tagline` (as the summary), `url` (primary
-  destination, label "Plugin page"), `repo` ("Source on GitHub") and `icon` (inlined SVG with
+  destination, label "Plugin page"), `repo` ("Source on GitHub"), `workshop` ("Steam
+  Workshop", only when the plugin's mod is on the Workshop) and `icon` (inlined SVG with
   `currentColor` set to family orange, as `anvil-website`'s `PluginIcon.astro` does). The hub
   keeps no copies of plugin icons.
 - The hub lists the team's projects, so it does not show rows for other authors' plugins; the
@@ -594,8 +595,10 @@ and read by the hub at build time (section 4.2).
 - `workshop`: the Steam Workshop item page of the plugin's mod, built from the optional
   `workshop` item id in the catalog frontmatter, or `null` for a plugin without one. Added
   after `schemaVersion` 1 in
-  [anvil-website#44](https://github.com/happy-dwarf-team/anvil-website/pull/44); the hub does
-  not show it.
+  [anvil-website#44](https://github.com/happy-dwarf-team/anvil-website/pull/44). The hub
+  shows it as the plugin row's "Steam Workshop" link (section 4.2) and accepts only a
+  `https://steamcommunity.com/sharedfiles/filedetails/?id=<digits>` URL; a missing field
+  means none.
 - `schemaVersion` changes only on a breaking change. Adding a field is not breaking, and the hub
   ignores fields it does not know.
 
