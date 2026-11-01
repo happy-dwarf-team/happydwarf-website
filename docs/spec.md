@@ -202,7 +202,7 @@ Initial entries (summaries and labels are drafts):
 | --- | --- | --- | --- | --- | --- |
 | `anvil` | Anvil ecosystem, featured | released | `https://anvil.happydwarf.dev/` ("Go to anvil.happydwarf.dev") | yes | Loads native plugins into Europa Universalis IV without changing `eu4.exe`, so Steam updates and file checks keep working. |
 | `anvil-plugin-template` | Anvil ecosystem | template | the repository ("Use this template") | no | Start your own Anvil plugin with build, CI checks and releases ready to go. |
-| `etch` | Tools for mod authors | released | `https://etch.happydwarf.dev/` ("etch.happydwarf.dev") | yes | A VS Code extension that previews EU4 interface mods: edit a `.gui` or `.gfx` file and see the window as the game draws it. |
+| `etch` | Tools for mod authors | released | `https://etch.happydwarf.dev/` ("etch.happydwarf.dev") | yes | A VS Code extension for EU4 interface mods: see the window as the game draws it while you edit a `.gui` or `.gfx` file, and reload each saved file into the running game. |
 | `paradox-workshop-publish` | Tools for mod authors | released | the repository ("Read the README") | no | Publish Paradox game mods to the Steam Workshop from GitHub Actions or your own PC, driven by the mod descriptor. |
 | `widescreen-loading-screens` | Anbennar mods | released | Workshop item `3686212690` ("Steam Workshop") | yes | Anbennar loading screens that fit widescreen monitors. |
 | `proper-2k-ui` | Anbennar mods, last | archived | Workshop item `3681465653` ("Steam Workshop") | yes | A proper 2K interface for Anbennar. No longer maintained. |

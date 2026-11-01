@@ -29,7 +29,7 @@
   name: Etch
   group: mod-tools
   order: 1
-  summary: 'A VS Code extension that previews EU4 interface mods: edit a `.gui` or `.gfx` file and see the window as the game draws it.'
+  summary: 'A VS Code extension for EU4 interface mods: see the window as the game draws it while you edit a `.gui` or `.gfx` file, and reload each saved file into the running game.'
   status: released
   primary:
     href: https://etch.happydwarf.dev/
