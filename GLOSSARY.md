@@ -99,7 +99,7 @@ Motion unique to one site, such as Anvil's sparks; never shared.
 _Avoid_: animation, effect
 
 **Family marker**:
-The small team mark with "A Happy Dwarf project" in a product site's footer, linking to the hub.
+The full team logo with "A Happy Dwarf project" in a product site's footer, linking to the hub.
 _Avoid_: badge, made-by line
 
 **Favicon tile**:

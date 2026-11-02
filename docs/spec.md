@@ -344,7 +344,7 @@ From [#9](https://github.com/happy-dwarf-team/.github/issues/9),
 [#14](https://github.com/happy-dwarf-team/.github/issues/14). The footer is on every page,
 404 included, and holds:
 
-- the favicon glyph and "Happy Dwarf Team · MIT licensed";
+- the full team logo (`happy-dwarf.svg`, 40 px) and "Happy Dwarf Team · MIT licensed";
 - "Source of this site" (this repository) and "GitHub organization";
 - the **disclaimer** as its own paragraph in muted text, not joined to "MIT licensed". On the hub
   it has two lines (no game art is shown, so no game-art line):

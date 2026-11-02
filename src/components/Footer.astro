@@ -1,14 +1,14 @@
 ---
-// The footer on every page, 404 included (docs/spec.md, section 6): the favicon glyph, the
+// The footer on every page, 404 included (docs/spec.md, section 6): the team logo, the
 // licence, the two GitHub links and the disclaimer. The hub shows no game art, so the
 // disclaimer has no game-art line.
-import glyph from '../assets/happy-dwarf-glyph.svg?raw';
+import logo from '../assets/happy-dwarf.svg?url';
 ---
 
 <footer class="site-footer">
 	<div class="wrap">
 		<p class="brand">
-			<span class="glyph" aria-hidden="true" set:html={glyph} />
+			<img class="logo" src={logo} alt="" width="40" height="40" />
 			Happy Dwarf Team · MIT licensed
 		</p>
 		<ul class="links">
@@ -46,14 +46,9 @@ import glyph from '../assets/happy-dwarf-glyph.svg?raw';
 		gap: 0.6rem;
 	}
 
-	.glyph {
-		display: inline-flex;
-		color: var(--forge-accent);
-	}
-
-	.glyph :global(svg) {
-		width: 1.5rem;
-		height: 1.5rem;
+	.logo {
+		width: 2.5rem;
+		height: 2.5rem;
 	}
 
 	.links {
