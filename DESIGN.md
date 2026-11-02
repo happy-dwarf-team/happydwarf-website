@@ -102,9 +102,9 @@ unchanged. They are not in `forge-family.css`; each site defines them in its own
 - **Favicon tile:** every favicon of the organization and Etch sites sits on a `#16171a` square
   with rx 6 on the 32 grid; without it, orange on a light tab strip is about 2.3:1 and verdigris
   about 1.9:1.
-- **Family marker:** product sites carry the small team mark with "A Happy Dwarf project",
-  linking to `https://happydwarf.dev/`, in their footer. Anvil gets it when it moves onto the
-  family.
+- **Family marker:** product sites carry the full team logo (`happy-dwarf.svg`, 40 px) with
+  "A Happy Dwarf project", linking to `https://happydwarf.dev/`, in their footer. Anvil gets it
+  when it moves onto the family; its footer already shows the same logo.
 
 ### Distribution
 
@@ -204,7 +204,7 @@ happydwarf.dev" button (the page's only filled button) and the three groups as a
 
 ### Footer
 
-The favicon glyph with "Happy Dwarf Team · MIT licensed", "Source of this site", "GitHub
+The full team logo (40 px) with "Happy Dwarf Team · MIT licensed", "Source of this site", "GitHub
 organization", and the disclaimer as its own paragraph in muted text.
 
 ### Motion on this site
