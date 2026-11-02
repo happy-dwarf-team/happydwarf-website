@@ -91,11 +91,10 @@ unchanged. They are not in `forge-family.css`; each site defines them in its own
 
 ### Marks
 
-- **Organization:** the full team logo (`happy-dwarf.svg`) at 32 px and up (header, hero); a
-  simplified glyph (helmet and beard) in the icon grammar for the favicon and small sizes;
-  wordmark "HAPPY DWARF" in JetBrains Mono, uppercase. Sources: `src/assets/happy-dwarf.svg`
-  (the full logo, as in `anvil-website`) and `src/assets/happy-dwarf-glyph.svg` (the glyph:
-  horned helmet in orange under the dark accent, nose and beard in orange).
+- **Organization:** the full team logo (`happy-dwarf.svg`) everywhere: header, hero, footer and
+  the favicon on its tile (legible at 16 px, checked 2026-11-02); wordmark "HAPPY DWARF" in
+  JetBrains Mono, uppercase. Source: `src/assets/happy-dwarf.svg` (the full logo, as in
+  `anvil-website`). The simplified glyph of the first version is retired.
 - **Etch:** the extension's glyph (window plus etching stylus, `packages/extension/media/icon.svg`
   in `etch`), recoloured to verdigris. Recolouring the extension's own Marketplace icon is a
   separate `etch` matter.

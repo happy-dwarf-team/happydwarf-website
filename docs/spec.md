@@ -333,7 +333,7 @@ One component holds title, description, canonical, Open Graph and Twitter tags, 
 - Links: `<link rel="icon" href="/favicon.svg" type="image/svg+xml">`,
   `<link rel="icon" href="/favicon.ico" sizes="32x32">`, `apple-touch-icon`. No web manifest
   and no 192/512 icons.
-- The favicon glyph (helmet and beard, drafted in the `prototype/org-home` prototype) sits on
+- The full team logo (`src/assets/happy-dwarf.svg`, 30 on the 32 grid) sits on
   the **favicon tile**: `#16171a`, rx 6 on the 32 grid. **Acceptance:** legible at 16 px on its
   tile, checked in a light and a dark tab strip.
 
