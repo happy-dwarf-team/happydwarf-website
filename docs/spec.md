@@ -145,7 +145,7 @@ is just a short man with a beard." Then three principles, the name on the left a
 the right:
 
 - **Never touch the game's files:** no changes to `eu4.exe`, and Steam file checks keep working.
-- **Open source, MIT, free:** no payments and no data collection.
+- **Open source, MIT, free:** no payments; nothing leaves the player's computer unless they choose to send a benchmark report.
 - **Claims we can back up:** measurements are labelled with their source; unverified things are
   marked as unverified.
 
@@ -159,6 +159,7 @@ few days.":
 | Need help installing? | the [install guide](https://anvil.happydwarf.dev/docs/install/) on `anvil.happydwarf.dev`, then [`SUPPORT.md`](https://github.com/happy-dwarf-team/.github/blob/main/SUPPORT.md) |
 | Found a bug or have an idea? | the issues of the project it concerns, through the organization's [repository list](https://github.com/orgs/happy-dwarf-team/repositories) |
 | Want to contribute? | [`CONTRIBUTING.md`](https://github.com/happy-dwarf-team/.github/blob/main/CONTRIBUTING.md); plugin authors start from the Plugin template |
+| Wondering whether it is safe? | [Is it safe?](https://anvil.happydwarf.dev/docs/safety/) on `anvil.happydwarf.dev` |
 | Security problem? | private reporting as in [`SECURITY.md`](https://github.com/happy-dwarf-team/.github/blob/main/SECURITY.md) |
 
 ## 4. Project list
