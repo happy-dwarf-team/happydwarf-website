@@ -193,7 +193,7 @@ rows when the catalog has more than five plugins (rules in [docs/spec.md](docs/s
 
 - About: the paragraph, then the three principles as ruled rows, the principle's name in mono on
   the left and one line of muted text on the right.
-- Get involved: the four paths as a grid of question plus link(s), then the closing line in
+- Get involved: the five paths as a grid of question plus link(s), then the closing line in
   muted text.
 
 ### 404 block
