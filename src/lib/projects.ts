@@ -55,7 +55,7 @@ export const GROUPS: { id: GroupId; title: string; intro: string }[] = [
 	{
 		id: 'anvil-ecosystem',
 		title: 'Anvil ecosystem',
-		intro: 'Anvil loads native plugins into the game; the plugins do what mods can’t.',
+		intro: 'Anvil loads native plugins into the game. The plugins do what mods can’t.',
 	},
 	{
 		id: 'mod-tools',
@@ -66,7 +66,7 @@ export const GROUPS: { id: GroupId; title: string; intro: string }[] = [
 		id: 'anbennar',
 		title: 'Anbennar mods',
 		intro:
-			'Interface mods for Anbennar, the fantasy total conversion of EU4. Anbennar is made by its own team; these mods need it installed.',
+			'Interface mods for Anbennar, the fantasy total conversion of EU4. Anbennar is made by its own team, and these mods need it installed.',
 	},
 ];
 

@@ -18,7 +18,7 @@
   name: Plugin template
   group: anvil-ecosystem
   order: 2
-  summary: Start your own Anvil plugin with build, CI checks and releases ready to go.
+  summary: Start your own Anvil plugin with the build, CI checks and releases already set up.
   status: template
   primary:
     href: https://github.com/happy-dwarf-team/anvil-plugin-template
@@ -29,7 +29,7 @@
   name: Etch
   group: mod-tools
   order: 1
-  summary: 'A VS Code extension for EU4 interface mods: see the window as the game draws it while you edit a `.gui` or `.gfx` file, and reload each saved file into the running game.'
+  summary: A VS Code extension for EU4 interface mods. See the window as the game would show it while you edit, and reload each saved file into the game.
   status: released
   primary:
     href: https://etch.happydwarf.dev/
@@ -64,7 +64,7 @@
   name: Proper 2K UI
   group: anbennar
   order: 2
-  summary: A proper 2K interface for Anbennar. No longer maintained.
+  summary: A 2K interface for Anbennar. No longer maintained.
   status: archived
   workshop: '3681465653'
   primary:

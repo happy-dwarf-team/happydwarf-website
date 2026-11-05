@@ -113,7 +113,7 @@ components are in [DESIGN.md](../DESIGN.md); prototype for reference:
 3. **Project groups**, in this order: **Anvil ecosystem → Tools for mod authors → Anbennar
    mods**, each a Ledger band (section 4). No filters and no tabs.
 4. **About**: one paragraph and three principles (section 3.3).
-5. **Get involved**: four paths and a closing line (section 3.3).
+5. **Get involved**: five paths and a closing line (section 3.3).
 6. **Footer** (section 6).
 
 ### 3.2 `404`
@@ -132,9 +132,9 @@ plain first, joke second, at most one dwarven touch per section.
 
 | Group | Intro (draft) |
 | --- | --- |
-| Anvil ecosystem | Anvil loads native plugins into the game; the plugins do what mods can't. |
+| Anvil ecosystem | Anvil loads native plugins into the game. The plugins do what mods can't. |
 | Tools for mod authors | For people who make mods: see your interface as you write it, publish with one command. |
-| Anbennar mods | Interface mods for Anbennar, the fantasy total conversion of EU4. Anbennar is made by its own team; these mods need it installed. |
+| Anbennar mods | Interface mods for Anbennar, the fantasy total conversion of EU4. Anbennar is made by its own team, and these mods need it installed. |
 
 The Anbennar intro is where independence from the Anbennar team is stated; the footer
 disclaimer covers Paradox only ([#14](https://github.com/happy-dwarf-team/.github/issues/14)).
@@ -151,8 +151,8 @@ the right:
 
 About carries no legal notice ([#14](https://github.com/happy-dwarf-team/.github/issues/14)).
 
-**Get involved**, four paths with one link each, then "Volunteer projects, answers can take a
-few days.":
+**Get involved**, five paths with one link each, then "These are volunteer projects, so answers
+can take a few days.":
 
 | Question | Link(s) |
 | --- | --- |
@@ -202,11 +202,11 @@ Initial entries (summaries and labels are drafts):
 | `id` | Group | Status | Primary destination (label) | Source link | Summary |
 | --- | --- | --- | --- | --- | --- |
 | `anvil` | Anvil ecosystem, featured | released | `https://anvil.happydwarf.dev/` ("Go to anvil.happydwarf.dev") | yes | Loads native plugins into Europa Universalis IV without changing `eu4.exe`, so Steam updates and file checks keep working. |
-| `anvil-plugin-template` | Anvil ecosystem | template | the repository ("Use this template") | no | Start your own Anvil plugin with build, CI checks and releases ready to go. |
-| `etch` | Tools for mod authors | released | `https://etch.happydwarf.dev/` ("etch.happydwarf.dev") | yes | A VS Code extension for EU4 interface mods: see the window as the game draws it while you edit a `.gui` or `.gfx` file, and reload each saved file into the running game. |
+| `anvil-plugin-template` | Anvil ecosystem | template | the repository ("Use this template") | no | Start your own Anvil plugin with the build, CI checks and releases already set up. |
+| `etch` | Tools for mod authors | released | `https://etch.happydwarf.dev/` ("etch.happydwarf.dev") | yes | A VS Code extension for EU4 interface mods. See the window as the game would show it while you edit, and reload each saved file into the game. |
 | `paradox-workshop-publish` | Tools for mod authors | released | the repository ("Read the README") | no | Publish Paradox game mods to the Steam Workshop from GitHub Actions or your own PC, driven by the mod descriptor. |
 | `widescreen-loading-screens` | Anbennar mods | released | Workshop item `3686212690` ("Steam Workshop") | yes | Anbennar loading screens that fit widescreen monitors. |
-| `proper-2k-ui` | Anbennar mods, last | archived | Workshop item `3681465653` ("Steam Workshop") | yes | A proper 2K interface for Anbennar. No longer maintained. |
+| `proper-2k-ui` | Anbennar mods, last | archived | Workshop item `3681465653` ("Steam Workshop") | yes | A 2K interface for Anbennar. No longer maintained. |
 
 Etch's primary destination is its site, not the VS Code Marketplace; this is why the hub
 launches after the Etch site ([#12](https://github.com/happy-dwarf-team/.github/issues/12)).
