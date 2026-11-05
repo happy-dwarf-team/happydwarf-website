@@ -55,7 +55,7 @@ export const GROUPS: { id: GroupId; title: string; intro: string }[] = [
 	{
 		id: 'anvil-ecosystem',
 		title: 'Anvil ecosystem',
-		intro: 'Anvil loads native plugins into the game. The plugins do what mods can’t.',
+		intro: 'Anvil adds plugins to the game, and they do what mods can’t: a faster start, the way back to the menu without a restart, Chinese, Japanese and Korean text.',
 	},
 	{
 		id: 'mod-tools',
