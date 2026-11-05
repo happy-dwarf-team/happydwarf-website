@@ -22,9 +22,9 @@ const orgFile = (name: string) => `${github}/.github/blob/main/${name}`;
 			<h1 id="hero-heading">Open-source tools and mods for Europa Universalis IV.</h1>
 			<p class="lead">They work beside the game, not inside its files.</p>
 			<ul class="audience" aria-label="Made for">
-				<li>Players</li>
-				<li>Mod authors</li>
-				<li>Plugin authors</li>
+				<li><a href="#anvil-ecosystem">Players</a></li>
+				<li><a href="#mod-tools">Mod authors</a></li>
+				<li><a href="https://anvil.happydwarf.dev/docs/plugins/overview/">Plugin authors</a></li>
 			</ul>
 			<a class="link" href={`#${groups[0].id}`}>See the projects <span aria-hidden="true">↓</span></a>
 		</div>
@@ -154,11 +154,18 @@ const orgFile = (name: string) => `${github}/.github/blob/main/${name}`;
 		list-style: none;
 	}
 
-	.audience li {
+	.audience a {
+		display: block;
 		padding: 0.25rem 0.75rem;
 		border: 1px solid var(--forge-border);
 		border-radius: 999px;
+		color: inherit;
 		font-size: 0.875rem;
+		text-decoration: none;
+	}
+
+	.audience a:hover {
+		border-color: var(--forge-accent, currentColor);
 	}
 
 	/* Above the text on narrow screens, beside it from 900 px. */
