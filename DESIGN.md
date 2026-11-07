@@ -204,7 +204,8 @@ happydwarf.dev" button (the page's only filled button) and the three groups as a
 ### Footer
 
 The full team logo (40 px) with "Happy Dwarf Team · MIT licensed", "Source of this site", "GitHub
-organization", and the disclaimer as its own paragraph in muted text.
+organization", "Discord server" (a text link like the other two, no Discord logo), and the
+disclaimer as its own paragraph in muted text.
 
 ### Motion on this site
 

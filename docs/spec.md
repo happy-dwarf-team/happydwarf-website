@@ -25,7 +25,9 @@ The Etch site ([etch-website](https://github.com/happy-dwarf-team/etch-website),
 - **Language:** English only.
 - **Not on the hub:** a blog, newsletter, changelog, per-project pages, member names or photos,
   measurements (they belong on the project sites, labelled with their source), contact by
-  email, Discord, form or Discussions.
+  email, form or Discussions. The team's public Discord server is the one exception: a plain
+  "Discord server" link in the footer (section 6), added on 2026-11-07 when the team opened the
+  server. GitHub issues stay the place where reports are tracked.
 - **Privacy:** no analytics, no cookies, no consent banner, no third-party requests from the
   page. Fonts are self-hosted.
 - **Launch order:** the hub launches only after the Etch site has launched, because Etch's row
@@ -346,7 +348,9 @@ From [#9](https://github.com/happy-dwarf-team/.github/issues/9),
 404 included, and holds:
 
 - the full team logo (`happy-dwarf.svg`, 40 px) and "Happy Dwarf Team · MIT licensed";
-- "Source of this site" (this repository) and "GitHub organization";
+- "Source of this site" (this repository), "GitHub organization" and "Discord server"
+  (`https://discord.happydwarf.dev/`, the redirect to the invite in section 7.1). It is a link
+  only: the page loads no widget, image or script from Discord;
 - the **disclaimer** as its own paragraph in muted text, not joined to "MIT licensed". On the hub
   it has two lines (no game art is shown, so no game-art line):
 
@@ -376,11 +380,16 @@ Every web record of the `happydwarf.dev` zone and its proxy status
 | `anvil` | CNAME | `happy-dwarf-team.github.io` | DNS only | `anvil-website` (exists) |
 | `etch` | CNAME | `happy-dwarf-team.github.io` | DNS only | `etch-website` |
 | `media` | CNAME (read-only) | R2 custom domain of `happydwarf-media` | **Proxied** | R2 |
+| `discord` | AAAA | `100::` (placeholder, no origin) | **Proxied** | the zone's redirect rule to the Discord invite |
 | `_github-pages-challenge-happy-dwarf-team` | TXT | organization domain verification | n/a | never delete (exists) |
 
 - GitHub Pages records are **DNS only**, or GitHub cannot issue their certificates.
-- **`media` is the one intentional exception:** R2 creates it as a read-only proxied record and
-  serves the bucket through Cloudflare's cache; it cannot be made DNS only.
+- **`media` and `discord` are the intentional exceptions:** R2 creates `media` as a read-only
+  proxied record and serves the bucket through Cloudflare's cache; it cannot be made DNS only.
+  `discord` exists only so the single redirect rule "discord.happydwarf.dev -> Discord invite"
+  (phase `http_request_dynamic_redirect`) can answer every path with a **302** to
+  `https://discord.gg/e63JfruWUg`, query string dropped. A new invite changes that rule only;
+  links on the sites, READMEs and Workshop pages point at `https://discord.happydwarf.dev/`.
 - The apex uses GitHub's A/AAAA list rather than a flattened apex CNAME.
 - `www` reaches the apex through **GitHub Pages' own redirect** (the apex is the configured
   custom domain). A Cloudflare redirect rule cannot work on DNS-only records.
@@ -394,7 +403,8 @@ Every web record of the `happydwarf.dev` zone and its proxy status
   ([#7](https://github.com/happy-dwarf-team/happydwarf-website/issues/7)). Since 2026-10-25
   `etch` ([etch-website#8](https://github.com/happy-dwarf-team/etch-website/issues/8)), the
   apex A/AAAA and `www` ([#8](https://github.com/happy-dwarf-team/happydwarf-website/issues/8))
-  exist as in the table; every record above is in place.
+  exist as in the table; every record above is in place. Since 2026-11-07 `discord` and its
+  redirect rule exist.
 
 ### 7.2 Media bucket
 
