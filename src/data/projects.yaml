@@ -7,7 +7,7 @@
   group: anvil-ecosystem
   order: 1
   featured: true
-  summary: Loads native plugins into Europa Universalis IV without changing `eu4.exe`, so Steam updates and file checks keep working.
+  summary: Adds plugins to Europa Universalis IV without touching the game’s files, so Steam updates and file checks keep working.
   status: released
   primary:
     href: https://anvil.happydwarf.dev/
