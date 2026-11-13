@@ -203,7 +203,7 @@ Initial entries (summaries and labels are drafts):
 
 | `id` | Group | Status | Primary destination (label) | Source link | Summary |
 | --- | --- | --- | --- | --- | --- |
-| `anvil` | Anvil ecosystem, featured | released | `https://anvil.happydwarf.dev/` ("Go to anvil.happydwarf.dev") | yes | Loads native plugins into Europa Universalis IV without changing `eu4.exe`, so Steam updates and file checks keep working. |
+| `anvil` | Anvil ecosystem, featured | released | `https://anvil.happydwarf.dev/` ("Go to anvil.happydwarf.dev") | yes | Adds plugins to Europa Universalis IV without touching the game’s files, so Steam updates and file checks keep working. |
 | `anvil-plugin-template` | Anvil ecosystem | template | the repository ("Use this template") | no | Start your own Anvil plugin with the build, CI checks and releases already set up. |
 | `etch` | Tools for mod authors | released | `https://etch.happydwarf.dev/` ("etch.happydwarf.dev") | yes | A VS Code extension for EU4 interface mods. See the window as the game would show it while you edit, and reload each saved file into the game. |
 | `paradox-workshop-publish` | Tools for mod authors | released | the repository ("Read the README") | no | Publish Paradox game mods to the Steam Workshop from GitHub Actions or your own PC, driven by the mod descriptor. |
